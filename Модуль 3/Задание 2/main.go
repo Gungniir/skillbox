@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+const entryCost = 40
+
 var stops = [...]string{
 	"Улица Программистов",
 	"Проспект Алгоритмов",
@@ -13,8 +15,8 @@ var stops = [...]string{
 
 //goland:noinspection GoUnhandledErrorResult
 func main() {
-	fmt.Println("Программа учета доходов маршрута \"Скиллбоксовский\".\n" +
-		"На маршруте всего 4 остановки. Цена проезда 20 рублей.")
+	fmt.Printf("Программа учета доходов маршрута \"Скиллбоксовский\".\n"+
+		"На маршруте всего 4 остановки. Цена проезда %d рублей.", entryCost)
 
 	fmt.Println("-------------")
 
@@ -36,7 +38,7 @@ func main() {
 		fmt.Println("Сколько пассажиров зашло на остановке? ")
 		fmt.Scan(&input)
 		passengersCount += input
-		income += input * 20
+		income += input * entryCost
 
 		fmt.Printf("Отправляемся с отсновки %q. В салоне пассажиров: %d.\n", stops[i], passengersCount)
 	}
