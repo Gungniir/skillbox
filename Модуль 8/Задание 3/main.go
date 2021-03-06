@@ -28,14 +28,30 @@ func main() {
 }
 
 func lemonadeChange(bills []int) bool {
-	cash := 0
+	cash := make([]int, 2) // 0 - пятёрки, 1 - десятки
 
 	for _, bill := range bills {
-		if bill-lemonadeCost > cash {
+		switch bill {
+		case lemonadeCost:
+			cash[0]++
+		case 10:
+			if cash[0] == 0 {
+				return false
+			}
+			cash[0]--
+			cash[1]++
+		case 20:
+			if cash[1] > 0 && cash[0] > 0 {
+				cash[1]--
+				cash[0]--
+				break
+			}
+			if cash[0] > 2 {
+				cash[0] -= 3
+				break
+			}
 			return false
 		}
-		cash -= bill - lemonadeCost // Сдача
-		cash += lemonadeCost        // Цена
 	}
 
 	return true
