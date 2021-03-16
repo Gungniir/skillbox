@@ -16,7 +16,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Print("Точность: ")
+	fmt.Print("Точность(по 50): ")
 	var epsilon float64
 	_, err = fmt.Scan(&epsilon)
 
@@ -34,7 +34,7 @@ func main() {
 		next := answer + (math.Pow(x, i) / fact)
 
 		if math.Abs(answer-next) < epsilon {
-			fmt.Printf("Ответ: %f\n", next)
+			fmt.Printf("Ответ: %.50f\n", next)
 			break
 		}
 
