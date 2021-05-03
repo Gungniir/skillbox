@@ -3,22 +3,25 @@ package main
 import (
 	"fmt"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 )
 
 func main() {
-	str := "Go is an Open source programming Language that makes it Easy to build simple, reliable, and efficient Software. Абябь. Ъьъ"
+	str := "Go is an Open source programming Language that makes it ♥ 123 ♠ Easy to build simple, reliable, and efficient Software. Абябь. Ъьъ"
 
 	fmt.Println(UpperWordCont(str))
 }
 
-func UpperWordCont(fullString string) int {
+func UpperWordCont(str string) int {
+	words := strings.Fields(str)
 	count := 0
 
-	for _, s := range strings.Split(fullString, " ") {
-		if len(s) > 0 && s[0] >= 'A' && s[0] <= 'Z' { // Латиница (один символ - один байт)
-			count++
-		} else if len(s) > 1 && s[:2] >= "А" && s[:2] <= "Я" { // Кириллица (один символ - два байта)
-			count++
+	for _, word := range words {
+		rn, _ := utf8.DecodeRuneInString(word) // First rune
+
+		if unicode.IsUpper(rn) {
+			count += 1
 		}
 	}
 
