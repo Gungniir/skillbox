@@ -3,18 +3,34 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(concat([4]int{1, 2, 3, 4}, [5]int{1, 2, 3, 4, 5}))
+	fmt.Println(merge([4]int{1, 2, 3, 4}, [5]int{1, 2, 3, 4, 5}))
 }
 
-func concat(a [4]int, b [5]int) [9]int {
-	var result [9]int
+func merge(a [4]int, b [5]int) [9]int {
+	var (
+		result        [9]int
+		aCurrentIndex = 0
+		bCurrentIndex = 0
+	)
 
-	for i, item := range a {
-		result[i] = item
-	}
+	for i := 0; i < len(result); i++ {
+		if aCurrentIndex == len(a) {
+			result[i] = b[bCurrentIndex]
+			bCurrentIndex++
+			continue
+		} else if bCurrentIndex == len(b) {
+			result[i] = a[aCurrentIndex]
+			aCurrentIndex++
+			continue
+		}
 
-	for i, item := range b {
-		result[i+4] = item
+		if a[aCurrentIndex] < b[bCurrentIndex] {
+			result[i] = a[aCurrentIndex]
+			aCurrentIndex++
+		} else {
+			result[i] = b[bCurrentIndex]
+			bCurrentIndex++
+		}
 	}
 
 	return result
